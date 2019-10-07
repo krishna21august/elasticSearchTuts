@@ -1,0 +1,74 @@
+#add indices
+PUT /products
+{
+  "settings": {
+    "number_of_replicas": 2,
+    "number_of_shards": 1
+  }
+}
+
+
+#indexing documents
+POST /products/_doc
+{
+    "name":"coffe maker",
+    "cost": 12,
+    "in_stock":12
+
+}
+
+#add with id involves PUT 
+PUT /products/_doc/133
+{
+    "name":"witch maker",
+    "cost": 12,
+    "in_stock":12
+
+}
+
+#retrieve document by id
+GET products/_doc/133
+
+#update document
+POST products/_update/133
+{
+  "doc": {
+    "in_stock":14
+  }
+}
+
+
+#add field in existing document(it replaces document and modifies it)
+POST products/_update/133
+{
+  "doc": {
+    "tags":["coffee","machine"]
+  }
+}
+
+
+#scripted updates
+POST products/_update/133
+{
+  "script": {
+      "source":"ctx._source.in_stock--"
+  }
+}
+
+POST products/_update/133
+{
+  "script": {
+      "source":"ctx._source.in_stock =10"
+  }
+}
+
+
+POST products/_update/133
+{
+  "script": {
+      "source":"ctx._source.in_stock -=params.quantity",
+      "params" :{
+        "quantity":10
+    }
+  }
+}

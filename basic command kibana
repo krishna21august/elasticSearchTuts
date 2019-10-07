@@ -17,33 +17,3 @@ GET _cat/shards?v
 DELETE /pages
 
 
-#add indices
-
-PUT /products
-{
-  "settings": {
-    "number_of_replicas": 2,
-    "number_of_shards": 1
-  }
-}
-
-
-#indexing documents
- 
-POST /products/_doc
-{
-    "name":"coffe maker",
-    "cost": 12,
-    "in_stock":12
-
-}
-
-#add with id involves PUT
- 
-PUT /products/_doc/133
-{
-    "name":"witch maker",
-    "cost": 12,
-    "in_stock":12
-
-}
