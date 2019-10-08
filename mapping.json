@@ -1,0 +1,71 @@
+# adding mapping to existing indices
+
+PUT /product/_mapping
+{
+  "properties":{
+    "discount":{
+      "type":"double"
+    }
+  }
+}
+
+PUT /product
+{
+  "mappings": {
+    "_doc": {
+      "dynamic": false,
+      "properties": {
+        "in_stock": {
+          "type": "integer"
+        },
+        "is_active": {
+          "type": "boolean"
+        },
+        "price": {
+          "type": "integer"
+        },
+        "sold": {
+          "type": "long"
+        }
+      }
+    }
+  }
+}
+From Elasticsearch 7.0.0, we are no longer allowed to specify the _doc key, 
+so we need to nest the dynamic and properties keys directly under the mappings key.
+ The rest of the query remains the same. The query should therefore be the following 
+ for Elasticsearch 7.x and onwards.
+
+PUT /product
+{
+  "mappings": {
+    "dynamic": false,
+    "properties": {
+      "in_stock": {
+        "type": "integer"
+      },
+      "is_active": {
+        "type": "boolean"
+      },
+      "price": {
+        "type": "integer"
+      },
+      "sold": {
+        "type": "long"
+      }
+    }
+  }
+}
+If you are migrating data from version 6.x indices to 7.x, you may specify 
+a include_type_name query parameter and set it to true. This allows you to keep 
+using the query containing the _doc key until version 8.0.0, at which point the
+ parameter will be removed. I recommend that you do not use this parameter unless you 
+ have a reason for doing so.
+
+If you want to save a bit of typing, you can copy the above query to have
+ it ready for the next lecture if you are following along. You can also find
+  it within the GitHub repository.
+
+I am working on a course update to bring all of the queries 100% up
+ to date with the latest version of Elasticsearch. I apologize for the 
+ inconvenience until the update is ready, and thank you for your patience!
