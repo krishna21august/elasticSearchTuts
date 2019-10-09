@@ -1,0 +1,18 @@
+#analyze text
+POST _analyze
+{
+  "tokenizer": "standard",
+  "text": "I'm in mood of drinking semi-dry wine!"
+}
+
+POST _analyze
+{
+    "filter": ["lowercase"],
+    "text": "I'm in mood of drinking semi-dry wine!"
+}
+
+POST _analyze
+{
+    "analyzer": ["standard"],
+    "text": "I'm in mood of drinking semi-dry wine!"
+}
