@@ -1,0 +1,28 @@
+GET /product/_search
+{
+  "query":{
+    "term": {
+      "name": "lobster"
+    }
+  }
+}
+
+GET /product/_search
+{
+  "query":{
+    "term": {
+      "name": "Lobster"
+    }
+  }
+}
+GET /product/_search
+{
+  "query":{
+    "match": {
+      "name": "lobster"
+    }
+  }
+}
+
+
+#term is case sensitive and match is not

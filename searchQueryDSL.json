@@ -1,0 +1,21 @@
+#get all results
+GET product/_search
+{
+  "query":{
+    "match_all": {}
+  }
+}
+
+#debug query
+GET /product/_explain/1
+{
+  "query":{
+    "term": {
+      "name": "lobster"
+    }
+  }
+}
+
+#query context v/s filter context
+relevance score is not calculated in filter context
+query should be used to get result considering frequency of repetio etc.
