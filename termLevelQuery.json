@@ -1,0 +1,140 @@
+#both of the below written queries are same
+GET /product/_search 
+{
+  "query":{
+    "term": {
+      "is_active": true
+    }
+  }
+}
+
+{
+    "query":{
+      "term": {
+        "is_active": {
+            "value":true
+        }
+      }
+    }
+  }
+
+  #search for multiple terms instead of term write terms and pass array of terms to a field
+
+  GET /product/_search
+{
+  "query":{
+    "terms": {
+      "tags.keyword": ["Soup","Cake"]
+    }
+  }
+}
+
+
+#search multiple ids
+GET /product/_search
+{
+  "query":{
+    "ids": {
+      "values": [1,2,3]
+    }
+  }
+}
+
+
+#matching documents with range
+GET /product/_search
+{
+  "query":{
+    "range": {
+      "in_stock":{
+        "lte": 5,
+        "gte":1
+      }
+    }
+  }
+}
+
+#using range for date
+GET /product/_search
+{
+  "query":{
+    "range": {
+      "created":{
+        "lte": "2010/10/01",
+        "gte":"2010/01/01"
+      }
+    }
+  }
+}
+
+#range with date format
+GET /product/_search
+{
+  "query":{
+    "range": {
+      "created":{
+        "lte": "01-10-2010",
+        "gte":"01-01-2010",
+        "format": "dd-MM-yyyy"
+      }
+    }
+  }
+}
+
+
+#relative date range
+GET /product/_search
+{
+  "query":{
+    "range": {
+      "created":{
+        "gte":"2010/01/01||-1y-1d"
+      }
+    }
+  }
+}
+
+#rounding off to month using range
+GET /product/_search
+{
+  "query":{
+    "range": {
+      "created":{
+        "gte":"2010/01/01||-1y/M"
+      }
+    }
+  }
+}
+
+GET /product/_search
+{
+  "query":{
+    "range": {
+      "created":{
+        "gte":"now/M-10y"
+      }
+    }
+  }
+}
+
+
+#matching documents with not null values
+
+GET /product/_search
+{
+  "query":{
+    "exists": {
+      "field":"tags"
+    }
+  }
+}
+
+#matching based on prefixes
+GET /product/_search
+{
+  "query":{
+    "prefix": {
+      "tags.keyword":"Vege"
+    }
+  }
+}
