@@ -1,0 +1,13 @@
+# search query get all results
+GET product/_search?q=*
+
+
+#search results having column containing word
+GET product/_search?q=name:lobster  #here name of column is name and search term is lobster
+
+
+#search on multiple columns containg terms 
+GET product/_search?q=tags:meat AND name:tuna
+
+
+
