@@ -1,0 +1,44 @@
+#search for match [by default it uses or]
+GET /recipe/_search
+{
+    "query":{
+        "match":{
+            "title": "recipes with pasta or spagetti"
+        }
+    }
+}
+
+#make same search to operate with and instead of or
+GET /recipe/_search
+{
+    "query":{
+        "match":{
+            "title": {
+            "query":  "recipes with pasta or spagetti",
+            "operator": "and"
+            }
+        }
+    }
+} 
+
+
+#search for a phrase [order of term matters here]
+ GET /recipe/_search
+ {
+     "query": {
+         "match_phrase":{
+             "title": "spagetti phrase"
+         }
+     }
+ }
+
+ #search on multiple fields
+ GET /product/_search
+{
+  "query":{
+    "multi_match": {
+      "query": "pasta",
+      "fields": ["description","title"]
+    }
+  }
+}
