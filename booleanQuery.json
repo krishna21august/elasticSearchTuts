@@ -1,0 +1,20 @@
+POST product/_search
+{
+  "query": {
+    "bool" : {
+      "must": [
+          {
+         "match" :{
+             "title": "a"
+         }
+          },{
+            "range": {
+              "price": {
+                "gte": 1
+              }
+            }
+          }
+      ]
+    }
+  }
+}
