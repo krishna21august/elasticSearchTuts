@@ -1,0 +1,39 @@
+#debug boolean query
+POST product/_search
+{
+  "query": {
+    "bool" : {
+      "must": [
+          {
+         "match" :{
+             "description": "Morbi"
+         }
+          }
+      ],
+      "must_not": [
+        {
+          "match" :{
+             "description": "Integer"
+         }
+          
+        }
+      ], 
+      "should": [
+        {
+          "match" :{
+             "description": "ipsum"
+         }
+           
+        }
+      ], 
+      "filter":{
+            "range": {
+              "price": {
+                "gte": 36
+              }
+            }
+          }
+    }
+  }
+}
+

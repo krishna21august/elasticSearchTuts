@@ -1,3 +1,29 @@
+#boolean query
+#alternative 1
+POST product/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "description": "Morbi"
+          }
+        },
+        {
+          "range": {
+            "price": {
+              "gte": 36
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+#alternative 2
+
 POST product/_search
 {
   "query": {
@@ -5,16 +31,87 @@ POST product/_search
       "must": [
           {
          "match" :{
-             "title": "a"
+             "description": "Morbi"
          }
-          },{
+          }
+      ],
+      "filter":{
             "range": {
               "price": {
-                "gte": 1
+                "gte": 36
               }
             }
           }
-      ]
+    }
+  }
+}
+
+#combination of must and must_not
+POST product/_search
+{
+  "query": {
+    "bool" : {
+      "must": [
+          {
+         "match" :{
+             "description": "Morbi"
+         }
+          }
+      ],
+      "must_not": [
+        {
+          "match" :{
+             "description": "Integer"
+         }
+          
+        }
+      ], 
+      "filter":{
+            "range": {
+              "price": {
+                "gte": 36
+              }
+            }
+          }
+    }
+  }
+}
+
+
+POST product/_search
+{
+  "query": {
+    "bool" : {
+      "must": [
+          {
+         "match" :{
+             "description": "Morbi"
+         }
+          }
+      ],
+      "must_not": [
+        {
+          "match" :{
+             "description": "Integer"
+         }
+          
+        }
+      ], 
+      "should": [
+        {
+          "match" :{
+             "description": "ipsum"
+         }
+           
+        }
+      ], 
+      "filter":{
+            "range": {
+              "price": {
+                "gte": 36
+              }
+            }
+          }
     }
   }
 }
