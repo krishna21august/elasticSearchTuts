@@ -138,3 +138,15 @@ GET /product/_search
     }
   }
 }
+
+#wildcard query [? =>"matches single character",* => "matches more than 1"] 
+GET product/_search
+{
+    "query":{
+        "wildcard":{
+            "tags.keyword": "Veg*ble"
+        }
+    }
+}
+
+
