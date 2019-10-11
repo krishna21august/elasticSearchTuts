@@ -145,7 +145,7 @@ POST product/_search
 
 
 #####################################################################################################
-#below written queries will return same result
+#below written queries will return same result (acts blike or)
 GET /product/_search
 {
   "query":
@@ -182,3 +182,45 @@ GET /product/_search
   }
 }
 
+
+#below written queries are same act as AND
+GET /product/_search
+{
+  "query":
+  {
+    "match": {
+      "description":
+      {
+        "query":"Aliquam Pellentesque",
+        "operator": "and"
+        
+      }
+    }
+  }
+}
+
+GET /product/_search
+{
+  "query":
+  {
+    "bool":{
+      "must":[
+        {
+          "term":
+          {
+            "description":"aliquam"
+
+          }
+        },
+        {
+          "term":
+          {
+            "description": "pellentesque"
+          }
+        }
+        ]
+        
+      
+    }
+  }
+}
