@@ -77,7 +77,6 @@ POST product/_search
   }
 }
 
-
 POST product/_search
 {
   "query": {
@@ -115,3 +114,71 @@ POST product/_search
     }
   }
 }
+
+
+
+#should with must acts as OR , alone as must
+
+POST product/_search
+{
+  "query": {
+    "bool" : {
+      "must": [
+          {
+         "match" :{
+             "price": 36
+         }
+          }
+      ],
+      "should": [
+        {
+          "match" :{
+             "name": "Sprouts"
+         }
+           
+        }
+      ]
+    }
+  }
+}
+
+
+
+#####################################################################################################
+#below written queries will return same result
+GET /product/_search
+{
+  "query":
+  {
+    "match": {
+      "description":"Aliquam Pellentesque"
+    }
+  }
+}
+
+GET /product/_search
+{
+  "query":
+  {
+    "bool":{
+      "should":[
+        {
+          "term":
+          {
+            "description":"aliquam"
+
+          }
+        },
+        {
+          "term":
+          {
+            "description": "pellentesque"
+          }
+        }
+        ]
+        
+      
+    }
+  }
+}
+
